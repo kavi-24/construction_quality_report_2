@@ -92,7 +92,6 @@ class _ReportScreenState extends State<ReportScreen> {
                 child: FutureBuilder(
                   future: dbProvider.getIssuesByReportID(widget.report.id),
                   builder: (context, snapshot) {
-                    print("snapshotdata: ${snapshot.data}");
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.data!.isNotEmpty) {
                         return ListView.builder(
@@ -114,6 +113,16 @@ class _ReportScreenState extends State<ReportScreen> {
                                   title: Text(snapshot.data![index].title),
                                   subtitle:
                                       Text(snapshot.data![index].description),
+                                  trailing: IconButton(
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                    onPressed: () {
+                                      dbProvider
+                                          .deleteIssue(snapshot.data![index]);
+                                    },
+                                  ),
                                 ),
                               ),
                             );

@@ -73,16 +73,22 @@ class _HomeState extends State<Home> {
             const SizedBox(
               width: 10,
             ),
-            GestureDetector(
-              onTap: () async {
-                await dbProvider.deleteDB().then(
-                      (value) => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Database deleted"),
+            PopupMenuButton(
+              onSelected: (value) {
+                if (value == 0) {
+                  dbProvider.deleteDB().then(
+                        (value) => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("DB deleted"),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                } else if (value == 1) {}
               },
+              itemBuilder: (context) => const [
+                PopupMenuItem<int>(value: 0, child: Text('Delete DB')),
+                PopupMenuItem<int>(value: 1, child: Text('Help'))
+              ],
               child: const Icon(
                 Icons.more_vert,
                 color: Colors.black,

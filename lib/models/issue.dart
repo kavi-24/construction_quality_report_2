@@ -23,7 +23,7 @@ class Issue {
     required this.description,
     required this.image,
   }) {
-    this.time = DateTime.now().toString().substring(0, 19);
+    this.time = time ?? DateTime.now().toString().substring(0, 19);
   }
 
   Issue copyWith({
@@ -64,7 +64,8 @@ class Issue {
 
   String toJson() => json.encode(toMap());
 
-  factory Issue.fromJson(String source) => Issue.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Issue.fromJson(String source) =>
+      Issue.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -74,21 +75,20 @@ class Issue {
   @override
   bool operator ==(covariant Issue other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.description == description &&
-      other.time == time &&
-      other.image == image;
+
+    return other.id == id &&
+        other.title == title &&
+        other.description == description &&
+        other.time == time &&
+        other.image == image;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      description.hashCode ^
-      time.hashCode ^
-      image.hashCode;
+        title.hashCode ^
+        description.hashCode ^
+        time.hashCode ^
+        image.hashCode;
   }
 }

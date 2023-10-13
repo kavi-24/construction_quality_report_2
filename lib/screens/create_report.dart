@@ -1,4 +1,5 @@
 import 'package:construction_quality_report_2/models/report.dart';
+import 'package:construction_quality_report_2/screens/home.dart';
 import 'package:construction_quality_report_2/services/db.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -109,6 +110,12 @@ class _CreateReportState extends State<CreateReport> {
                             ),
                           ),
                         );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Home(),
+                      ),
+                    );
                   }
                 },
                 child: const Text("Create"),

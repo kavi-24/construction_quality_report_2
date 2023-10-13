@@ -4,7 +4,6 @@ import 'package:construction_quality_report_2/models/issue.dart';
 import 'package:construction_quality_report_2/services/db.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class IssueScreen extends StatefulWidget {
   final Issue issue;
@@ -36,20 +35,12 @@ class _IssueScreenState extends State<IssueScreen> {
           ),
           actions: const [
             Icon(
-              Icons.add_a_photo_outlined,
+              Icons.edit_document,
               color: Colors.black,
               size: 25,
             ),
             SizedBox(
               width: 20,
-            ),
-            Icon(
-              Icons.picture_as_pdf,
-              color: Colors.black,
-              size: 25,
-            ),
-            SizedBox(
-              width: 10,
             ),
           ],
         ),
@@ -65,7 +56,7 @@ class _IssueScreenState extends State<IssueScreen> {
                     children: [
                       Text(
                         widget.issue.time,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontStyle: FontStyle.italic,
                         ),
@@ -74,12 +65,12 @@ class _IssueScreenState extends State<IssueScreen> {
                   ),
                   Text(
                     widget.issue.title,
-                    style: TextStyle(fontSize: 25),
+                    style: const TextStyle(fontSize: 25),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     widget.issue.description,
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   const SizedBox(height: 10),
                   Container(

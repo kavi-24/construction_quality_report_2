@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:construction_quality_report_2/models/issue.dart';
 import 'package:construction_quality_report_2/models/report.dart';
+import 'package:construction_quality_report_2/screens/home.dart';
 import 'package:construction_quality_report_2/services/db.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -159,11 +160,6 @@ class _CreateIssueState extends State<CreateIssue> {
                             ),
                           );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Processing Data"),
-                            ),
-                          );
                           Issue issue = Issue(
                             id: widget.report.id,
                             title: _titleController.text,
@@ -185,18 +181,12 @@ class _CreateIssueState extends State<CreateIssue> {
                                   ),
                                 ),
                               );
-                          /* await dbProvider.insertIssue(map).then((value) async {
-                            await dbProvider
-                                .addIssueToReport(widget.report.id, issue.id)
-                                .then(
-                                  (value) => ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Issue created"),
-                                    ),
-                                  ),
-                                );
-                          }); */
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          );
                         }
                       }
                     },

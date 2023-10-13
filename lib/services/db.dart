@@ -9,7 +9,9 @@ class DB with ChangeNotifier {
   static Database? _database;
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    if (_database != null) {
+      return _database!;
+    }
 
     // If the database doesn't exist, create one and return it
     _database = await initDB();
@@ -95,7 +97,6 @@ class DB with ChangeNotifier {
     final db = await DB.instance.database;
     List<Map<String, dynamic>> reports = await db.query('reports');
 
-    print(reports);
     return reports;
   }
 
@@ -107,14 +108,12 @@ class DB with ChangeNotifier {
   }
 
   Future<void> insertDetails(Map<String, dynamic> details) async {
-    print(details);
     final db = await DB.instance.database;
     await db.insert('details', details);
     notifyListeners();
   }
 
   Future<void> updateDetails(Map<String, dynamic> details) async {
-    print(details);
     final db = await DB.instance.database;
     await db.delete('details');
     await db.insert('details', details);
@@ -122,7 +121,6 @@ class DB with ChangeNotifier {
   }
 
   Future<void> insertReport(Map<String, dynamic> report) async {
-    print(report);
     final db = await DB.instance.database;
     await db.insert('reports', report);
     notifyListeners();
@@ -157,8 +155,8 @@ class DB with ChangeNotifier {
     // the issue table has a column reportID
     // get all the issues with the reportID
     final db = await DB.instance.database;
-    List<Map<String, dynamic>> issues = await db
-        .query('issue', where: 'id = ?', whereArgs: [reportID]);
+    List<Map<String, dynamic>> issues =
+        await db.query('issue', where: 'id = ?', whereArgs: [reportID]);
     List<Issue> issuesList = [];
     for (var issue in issues) {
       issuesList.add(Issue.fromMap(issue));
@@ -167,7 +165,6 @@ class DB with ChangeNotifier {
   }
 
   Future<void> insertIssue(Map<String, dynamic> issue) async {
-    print(issue);
     final db = await DB.instance.database;
     await db.insert('issue', issue);
     notifyListeners();
@@ -178,6 +175,19 @@ class DB with ChangeNotifier {
     final db = await DB.instance.database;
     await db.delete('reports', where: 'id = ?', whereArgs: [reportID]);
     await db.delete('issue', where: 'id = ?', whereArgs: [reportID]);
+    notifyListeners();
+  }
+
+  Future<void> deleteIssue(Issue issue) async {
+    final db = await DB.instance.database;
+    Map<String, dynamic> issueMap = issue.toMap();
+    List<Map<String, dynamic>> allIssues = await getIssues();
+    for (var element in allIssues) {
+      if (element == issueMap) {
+      } else {
+      }
+    }
+    await db.delete("issue", where: "time = ?", whereArgs: [issueMap["time"]]);
     notifyListeners();
   }
 
