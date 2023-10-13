@@ -25,10 +25,13 @@ class DB with ChangeNotifier {
       onCreate: (db, version) async {
         await db.execute(
           '''CREATE TABLE details(
-          companyName TEXT,
-          department TEXT,
-          dateOfAudit DATE,
-          auditor TEXT)
+            fullName TEXT,
+            email TEXT,
+            phone TEXT,
+            company TEXT,
+            headerLogo TEXT NULL,
+            footerText TEXT NULL,
+            footerLogo TEXT NULL)
           ''',
         );
         await db.execute(
@@ -89,7 +92,6 @@ class DB with ChangeNotifier {
   Future<List<Map<String, dynamic>>> getDetails() async {
     final db = await DB.instance.database;
     List<Map<String, dynamic>> details = await db.query('details');
-
     return details;
   }
 
@@ -118,6 +120,7 @@ class DB with ChangeNotifier {
     await db.delete('details');
     await db.insert('details', details);
     notifyListeners();
+    print(details);
   }
 
   Future<void> insertReport(Map<String, dynamic> report) async {
@@ -184,8 +187,7 @@ class DB with ChangeNotifier {
     List<Map<String, dynamic>> allIssues = await getIssues();
     for (var element in allIssues) {
       if (element == issueMap) {
-      } else {
-      }
+      } else {}
     }
     await db.delete("issue", where: "time = ?", whereArgs: [issueMap["time"]]);
     notifyListeners();
